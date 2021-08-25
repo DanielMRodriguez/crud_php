@@ -5,14 +5,14 @@ use Psr\Http\Message\ResponseInterface as Response;
 use Psr\Http\Message\ServerRequestInterface as Request;
 use Slim\Factory\AppFactory;
 use Slim\Exception\NotFoundException;
-use Symfony\Component\Dotenv\Dotenv;
+
 
 require_once __DIR__ . '/vendor/autoload.php';
 require_once __DIR__ . '/usuario.php';
 
 //cargar variables de entorno
-$dotenv = new Dotenv();
-$dotenv->load(__DIR__ . '/.env');
+$dotenv = Dotenv\Dotenv::createImmutable(__DIR__);
+$dotenv->load();
 
 // Instanciar la app de slimframework para manejar las rutas
 

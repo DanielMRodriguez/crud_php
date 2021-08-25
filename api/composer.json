@@ -1,17 +1,17 @@
 {
-    "name": "vendor/crud",
-    "description": "crud in php",
-    "type": "project",
-    "require": {
-        "symfony/dotenv": "^5.3",
-        "slim/slim": "^4.8",
-        "slim/psr7": "^1.4"
-    },
-    "license": "MIT",
-    "authors": [
-        {
-            "name": "Luis Mendoza",
-            "email": "luis.mendoza.0896@gmail.com"
-        }
-    ]
+  "name": "vendor/crud",
+  "description": "crud in php",
+  "type": "project",
+  "require": {
+    "slim/slim": "^4.8",
+    "slim/psr7": "^1.4",
+    "vlucas/phpdotenv": "^5.3"
+  },
+  "license": "MIT",
+  "authors": [
+    {
+      "name": "Luis Mendoza",
+      "email": "luis.mendoza.0896@gmail.com"
+    }
+  ]
 }

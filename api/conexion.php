@@ -1,11 +1,9 @@
 <?php
 
-use Symfony\Component\Dotenv\Dotenv;
-
 require_once __DIR__ . '/vendor/autoload.php';
 
-$dotenv = new Dotenv();
-$dotenv->load(__DIR__ . './.env');
+$dotenv = Dotenv\Dotenv::createImmutable(__DIR__);
+$dotenv->load();
 
 class conexion
 {
@@ -16,10 +14,10 @@ class conexion
     public $pdo;
     public function __construct()
     {
-        $this->usuario = $_ENV['DB_USER'];
-        $this->password = $_ENV['DB_PASSWORD'];
-        $this->host = $_ENV['DB_HOST'];
-        $this->db = $_ENV['DB_NAME'];
+        $this->usuario = $_SERVER['DB_USER'];
+        $this->password = $_SERVER['DB_PASSWORD'];
+        $this->host = $_SERVER['DB_HOST'];
+        $this->db = $_SERVER['DB_NAME'];
         $opciones = [
             PDO::ATTR_EMULATE_PREPARES   => false,
             PDO::ATTR_ERRMODE            => PDO::ERRMODE_EXCEPTION,
