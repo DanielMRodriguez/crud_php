@@ -51,18 +51,21 @@ class usuario extends conexion
         $this->last_name = $arr[0]['last_name'];
         $this->email = $arr[0]['email'];
         $this->phone = $arr[0]['phone'];
-        return $arr[0];
         $stmt = null;
+        return $arr[0];
+      
     }
 
     public function delete_user()
     {
         try {
-            $stmt = $this->pdo->prepare("UPDATE FROM users set deleted =1 where id=?;");
+            $stmt = $this->pdo->prepare("UPDATE users set deleted=1 WHERE id=?;");
             $stmt->execute([$this->id]);
+            $stmt = null;
             return true;
+           
         } catch (\Throwable $th) {
-            return false;
+            return $th;
         }
     }
 }

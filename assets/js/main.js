@@ -116,19 +116,22 @@ $("#eliminarUsuario").on("click", () => {
     .then((response) => response.json())
     .then((res) => {
       $(".message").text(res.message);
-      $("#success_dialog").addClass("show_success_dialog");
+      $("#success_dialogd").addClass("show_success_dialog");
       $(".loader").removeClass("show_loader");
+      table.ajax.reload();
     })
     .catch((err) => {
       $(".message").text(res.message);
       $(".loader").removeClass("show_loader");
-      $("#error_dialogo").addClass("show_error_dialogo");
+      $("#error_dialogod").addClass("show_error_dialogo");
     });
 });
 
 function closeDeletDialog() {
   userToDelet = 0;
   $("#eliminarDialog").modal("hide");
+  $("#success_dialogd").removeClass("show_success_dialog");
+  $("#error_dialogod").removeClass("show_error_dialogo");
 }
 function editar(e) {
   let id = $(e).data("id");

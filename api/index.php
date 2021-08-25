@@ -18,8 +18,7 @@ $app->setBasePath("/crud/api"); //base url
 $app->addErrorMiddleware(true, true, true);
 
 $usuario = new usuario();
-
-//GET ALL
+///////////////GET ALL
 $app->get('/getUsers', function ($request, $response) use ($usuario) {
     $usuarios = $usuario->getAll();
     for ($i = 0; $i < count($usuarios); $i++) {
@@ -41,7 +40,17 @@ $app->get('/getUsers', function ($request, $response) use ($usuario) {
     return $response
         ->withHeader('Content-Type', 'application/json');
 });
-//CREATE
+///////////////GET USER
+$app->get('/getUser', function ($request, $response) use ($usuario) {
+    $idUser = $request->getQueryParams()['id'];
+    $userData = $usuario->getUser($idUser);
+
+    $payload = json_encode(['error' => false, "message" => "Usuario obtenido con exito", "data" => ['user' => $userData]]);
+    $response->getBody()->write($payload);
+    return $response
+        ->withHeader('Content-Type', 'application/json');
+});
+///////////////CREATE USER
 $app->post('/createUser', function ($request, $response) use ($usuario) {
     $contents = json_decode(file_get_contents('php://input'), true);
 
@@ -56,7 +65,7 @@ $app->post('/createUser', function ($request, $response) use ($usuario) {
     return $response
         ->withHeader('Content-Type', 'application/json');
 });
-//UPDATE
+///////////////UPDATE USER
 $app->put('/updateUser', function ($request, $response) use ($usuario) {
     $contents = json_decode(file_get_contents('php://input'), true);
 
@@ -84,12 +93,11 @@ $app->delete('/deleteUser', function ($request, $response) use ($usuario) {
     ];
     $usuario->delete_user();
 
+
     $payload = json_encode(['error' => false, "message" => "Se elimino el usuario $usuarioDestruido[name] $usuarioDestruido[last_name] con éxito", "data" => ['usuario' => $usuarioDestruido]]);
     $response->getBody()->write($payload);
     return $response
         ->withHeader('Content-Type', 'application/json');
 });
-
-
 
 $app->run();

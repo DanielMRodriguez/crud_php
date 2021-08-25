@@ -1,5 +1,5 @@
-body{
-    font-family: "Roboto", sans-serif;
+body {
+  font-family: "Roboto", sans-serif;
 }
 #main-content {
   padding-top: 30px;
@@ -59,7 +59,8 @@ body{
   align-items: center;
   justify-content: center;
 }
-#success_dialog {
+#success_dialog,
+#success_dialogd {
   display: none;
   position: absolute;
   top: 0;
@@ -70,11 +71,14 @@ body{
   z-index: 1000;
   align-items: center;
   justify-content: center;
+  padding: 40px;
 }
 
-#error_dialogo{
-      display: none;
+#error_dialogo,
+#error_dialogod {
+  display: none;
   position: absolute;
+  padding: 40px;
   top: 0;
   right: 0;
   left: 0;
@@ -84,6 +88,8 @@ body{
   align-items: center;
   justify-content: center;
 }
-.show_error_dialogo,.show_success_dialog,.show_loader{
-    display: flex !important;
-} 
+.show_error_dialogo,
+.show_success_dialog,
+.show_loader {
+  display: flex !important;
+}
