@@ -53,7 +53,6 @@ class usuario extends conexion
         $this->phone = $arr[0]['phone'];
         $stmt = null;
         return $arr[0];
-      
     }
 
     public function delete_user()
@@ -63,7 +62,6 @@ class usuario extends conexion
             $stmt->execute([$this->id]);
             $stmt = null;
             return true;
-           
         } catch (\Throwable $th) {
             return $th;
         }
