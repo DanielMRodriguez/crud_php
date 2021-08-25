@@ -1,8 +1,45 @@
 # CRUD con PHP y AJAX
-Es un crud usando PHP apoyado con una thiny framework slim php para manejar las rutas y un modelo hecho con php vanilla, el front esta hecho con bootstrap y jquery, además de incroporar la libreria datatable de jquery, las peticiones se hacen en fetch para mantenerlo lo más vanilla posible.
 
-El crud se salta muchas reglas de negocio y validaciones, ya que es a forma de ejemplo sencillo.
+Es un crud usando PHP apoyado con una framework tiny llamado [slim](https://www.slimframework.com/docs/v4/) solamente para manejar las rutas.
 
-#USAGE
+El backend esta hecho con PHP, me apoye en un framework tiny solamente para manejar las rutas y evitar esa lógica, pero hice el modelo y la lógica con PHP vanilla, con una clase conexión y una clase usuario (que es el único objeto) que hereda de conexión para hacer los queries.
 
-Solamente clona el repositorio, entra a la carpeta API desde tu consola, instala las dependencias "composer install" crea tu archivo .env en base al .env example y listo
+El frontend esta hecho con bootstrap y jquery, la tabla con el plugin de [DataTables](https://datatables.net/), las peticiones ajax estan hechas con fetch.
+
+
+## Instalación
+
+Para instalar el proyecto solo hace falta clonar el repositorio
+
+```bash
+git clone https://github.com/DanielMRodriguez/crud_php.git
+```
+
+Después ir a la carpeta api desde la termial
+
+```bash
+cd crud_php && cd api
+```
+
+Una vez aquí hay que instalar las dependencias de [composer](https://getcomposer.org/)
+
+```bash
+composer install
+```
+
+Y para terminar solamente hace falta que definas las variables de entorno, 
+
+```env
+DB_USER=root
+DB_PASSWORD=
+DB_HOST=127.0.0.1
+DB_NAME=database
+BASE_PATH=/crud/api
+```
+
+## Usabilidad
+Una vez instalado solamente tienes que crear una base de datos y una tabla de nombre users con los campos, name, last_name, phone, email, created_at, deleted, updated_at, y listo ya puedes usar el crud.
+
+
+## License
+[MIT](https://choosealicense.com/licenses/mit/)
