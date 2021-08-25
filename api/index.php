@@ -5,28 +5,33 @@ use Psr\Http\Message\ResponseInterface as Response;
 use Psr\Http\Message\ServerRequestInterface as Request;
 use Slim\Factory\AppFactory;
 use Slim\Exception\NotFoundException;
+use Symfony\Component\Dotenv\Dotenv;
 
 require_once __DIR__ . '/vendor/autoload.php';
 require_once __DIR__ . '/usuario.php';
 
+//cargar variables de entorno
+$dotenv = new Dotenv();
+$dotenv->load(__DIR__ . '/.env');
+
 // Instanciar la app de slimframework para manejar las rutas
 
 $app = AppFactory::create();
-$app->setBasePath("/crud/api"); //base url
-
-// Add error middleware
+$app->setBasePath($_SERVER['BASE_PATH']); //base url
 $app->addErrorMiddleware(true, true, true);
 
+//instanciar mi modelo
 $usuario = new usuario();
+
 ///////////////GET ALL
 $app->get('/getUsers', function ($request, $response) use ($usuario) {
+
     $usuarios = $usuario->getAll();
     for ($i = 0; $i < count($usuarios); $i++) {
+        //agregar la columna de acciones
         $id = $usuarios[$i]['id'];
         $usuarios[$i]['actions'] = "<button data-id='$id' class='btn btn-primary' onClick='editar(this)'>Editar</button>";
         $usuarios[$i]['actions'] .= "<button data-id='$id' class='btn btn-danger' onClick='eliminar(this)'>Borrar</button>";
-        // var_dump($user);
-        // die; //['actions'] = "<a href='#'>edit</a>";
     }
 
     $payload = json_encode(
@@ -40,6 +45,7 @@ $app->get('/getUsers', function ($request, $response) use ($usuario) {
     return $response
         ->withHeader('Content-Type', 'application/json');
 });
+
 ///////////////GET USER
 $app->get('/getUser', function ($request, $response) use ($usuario) {
     $idUser = $request->getQueryParams()['id'];
@@ -52,14 +58,17 @@ $app->get('/getUser', function ($request, $response) use ($usuario) {
 });
 ///////////////CREATE USER
 $app->post('/createUser', function ($request, $response) use ($usuario) {
+    //optener cuerpo del request y parsearlo a un array
     $contents = json_decode(file_get_contents('php://input'), true);
 
+    //llenar el modelo
     $usuario->name = $contents['name'];
     $usuario->last_name = $contents['last_name'];
     $usuario->email = $contents['email'];
     $usuario->phone = $contents['phone'];
+    //guardar el usario
     $usuario->save();
-
+    //respuesta
     $payload = json_encode(['error' => false, "message" => "Usuario creado con éxito", "data" => []]);
     $response->getBody()->write($payload);
     return $response
@@ -67,11 +76,12 @@ $app->post('/createUser', function ($request, $response) use ($usuario) {
 });
 ///////////////UPDATE USER
 $app->put('/updateUser', function ($request, $response) use ($usuario) {
+    //optener el cuerpo del rquest y parsearlo a un array
     $contents = json_decode(file_get_contents('php://input'), true);
-
+    //optemner el usuario a actualizar
     $idUser = $request->getQueryParams()['id'];
     $usuario->getUser($idUser);
-
+    //actualizar las propiedades del modelo
     $usuario->name = $contents['name'];
     $usuario->last_name = $contents['last_name'];
     $usuario->email = $contents['email'];
