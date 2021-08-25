@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Crud php</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-KyZXEAg3QhqLMpG8r+8fhAXLRk2vvoC2f3B09zVXn8CA5QIVfZOJ3BCsw2P0p/We" crossorigin="anonymous">
+    <link rel="stylesheet" href="//cdn.datatables.net/1.10.25/css/jquery.dataTables.min.css">
+    <link rel="stylesheet" href="https://cdn.datatables.net/responsive/2.2.9/css/responsive.dataTables.min.css">
+    <link href="./assets/css/styles.css" rel="stylesheet" />
+
+</head>
+
+<body>
+    <div class="container" id="main-content">
+        <div class="row">
+            <div class="col-12 mb-5">
+                <h2>
+                    Usuarios
+                </h2>
+            </div>
+            <div class="col-auto ml-auto">
+                <button class="btn btn-primary" id="crearUsuario">
+                    Crear usuario
+                </button>
+            </div>
+            <div class="col-12">
+                <table id="usuarios" class="display responsive nowrap">
+                    <thead>
+                        <tr>
+                            <th>
+                                Nombre
+                            </th>
+                            <th>
+                                Apellidos
+                            </th>
+                            <th>
+                                Teléfono
+                            </th>
+                            <th>
+                                Correo
+                            </th>
+                            <th>
+                                Fecha
+                            </th>
+                            <th>
+                                Acciones
+                            </th>
+                        </tr>
+                    </thead>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal fade" id="formNuevoUsuario" tabindex="-1" data-backdrop="static" role="dialog"
+        aria-labelledby="formNuevoUsuario" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="loader">
+                    <div class="lds-facebook">
+                        <div></div>
+                        <div></div>
+                        <div></div>
+                    </div>
+                </div>
+                <div id="success_dialog">
+                    <div>
+                        <h2 class="text-success message">Usuario insertado con exito</h2>
+                        <button class="close btn btn-secondary d-block m-auto mt-3">Cerrar</button>
+                    </div>
+                </div>
+
+                <div id="error_dialogo">
+                    <div>
+                        <h2 class="text-danger message">Hubo un error al guardar el usuario vuelve a intentar más tarde
+                        </h2>
+                        <button class="close btn btn-danger d-block m-auto mt-3">Cerrar</button>
+                    </div>
+                </div>
+                <div class="modal-header">
+                    <h5 class="modal-title" id="title-form">Crear nuevo usuario</h5>
+                    <button type="button" class="close" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <form>
+                        <div class="form-group">
+                            <label for="name" class="col-form-label">Nombre:</label>
+                            <input type="text" id="name" name="name" class="form-control" id="recipient-name">
+                        </div>
+                        <div class="form-group">
+                            <label for="last_name" class="col-form-label">Apellidos:</label>
+                            <input type="text" id="last_name" name="last_name" class="form-control" id="recipient-name">
+                        </div>
+                        <div class="form-group">
+                            <label for="phone" class="col-form-label">Teléfono:</label>
+                            <input type="text" id="phone" name="phone" class="form-control" id="recipient-name">
+                        </div>
+                        <div class="form-group">
+                            <label for="email" class="col-form-label">Correo:</label>
+                            <input type="text" id="email" name="email" class="form-control" id="recipient-name">
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary close" data-dismiss="modal">Close</button>
+                    <button type="button" id="guardarUsuario" class="btn btn-primary">Guardar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <div class="modal fade" id="eliminarDialog" tabindex="-1" data-backdrop="static" role="dialog"
+        aria-labelledby="eliminarDialog" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="loader">
+                    <div class="lds-facebook">
+                        <div></div>
+                        <div></div>
+                        <div></div>
+                    </div>
+                </div>
+                <div id="success_dialog">
+                    <div>
+                        <h2 class="text-success message">Usuario insertado con exito</h2>
+                        <button class="btn btn-secondary d-block m-auto mt-3"
+                            onclick="closeDeletDialog()">Cerrar</button>
+                    </div>
+                </div>
+
+                <div id="error_dialogo">
+                    <div>
+                        <h2 class="text-danger message">Hubo un error al guardar el usuario vuelve a intentar más tarde
+                        </h2>
+                        <button class=" btn btn-danger d-block m-auto mt-3" onclick="closeDeletDialog()">Cerrar</button>
+                    </div>
+                </div>
+                <div class="modal-header">
+                    <h5 class="modal-title text-danger" id="title-form">Eliminar usuario</h5>
+                    <button type="button" class="close" aria-label="Close" onclick="closeDeletDialog()">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body" id="delete">
+                    <h2 class="text-danger">
+                        ¿Estas seguro que deseas eliminar este usuario?
+                    </h2>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary deletCancel" data-dismiss="modal"
+                        onclick="closeDeletDialog()">Close</button>
+                    <button type="button" id="eliminarUsuario" class="btn btn-danger">Eliminar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.3/dist/umd/popper.min.js"
+        integrity="sha384-eMNCOe7tC1doHpGoWe/6oMVemdAVTMs2xqW4mwXrXsW0L84Iytr2wi5v2QjrP/xp"
+        crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/js/bootstrap.min.js"
+        integrity="sha384-cn7l7gDp0eyniUwwAZgrzD06kc/tftFf19TOAs2zVinnD/C7E91j9yyk5//jjpt/"
+        crossorigin="anonymous"></script>
+    <script src="//cdn.datatables.net/1.10.25/js/jquery.dataTables.min.js"></script>
+    <script src="https://cdn.datatables.net/responsive/2.2.9/js/dataTables.responsive.min.js"></script>
+
+    <script src="./assets/js/main.js"></script>
+</body>
+
+</html>
