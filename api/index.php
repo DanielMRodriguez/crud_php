@@ -45,7 +45,7 @@ $app->get('/getUser', function ($request, $response) use ($usuario) {
     $idUser = $request->getQueryParams()['id'];
     $userData = $usuario->getUser($idUser);
 
-    $payload = json_encode(['error' => false, "message" => "Usuario obtenido con exito", "data" => ['user' => $userData]]);
+    $payload = json_encode(['error' => false, "message" => "Usuario obtenido con éxito", "data" => ['user' => $userData]]);
     $response->getBody()->write($payload);
     return $response
         ->withHeader('Content-Type', 'application/json');
@@ -60,7 +60,7 @@ $app->post('/createUser', function ($request, $response) use ($usuario) {
     $usuario->phone = $contents['phone'];
     $usuario->save();
 
-    $payload = json_encode(['error' => false, "message" => "Usuario creado con exito", "data" => []]);
+    $payload = json_encode(['error' => false, "message" => "Usuario creado con éxito", "data" => []]);
     $response->getBody()->write($payload);
     return $response
         ->withHeader('Content-Type', 'application/json');
@@ -78,7 +78,7 @@ $app->put('/updateUser', function ($request, $response) use ($usuario) {
     $usuario->phone = $contents['phone'];
     $usuario->save();
 
-    $payload = json_encode(['error' => false, "message" => "Usuario actualizado con exito", "data" => []]);
+    $payload = json_encode(['error' => false, "message" => "Usuario actualizado con éxito", "data" => []]);
     $response->getBody()->write($payload);
     return $response
         ->withHeader('Content-Type', 'application/json');
@@ -94,7 +94,7 @@ $app->delete('/deleteUser', function ($request, $response) use ($usuario) {
     $usuario->delete_user();
 
 
-    $payload = json_encode(['error' => false, "message" => "Se elimino el usuario $usuarioDestruido[name] $usuarioDestruido[last_name] con éxito", "data" => ['usuario' => $usuarioDestruido]]);
+    $payload = json_encode(['error' => false, "message" => "Se elimino el usuario <<$usuarioDestruido[name] $usuarioDestruido[last_name]>> con éxito", "data" => ['usuario' => $usuarioDestruido]]);
     $response->getBody()->write($payload);
     return $response
         ->withHeader('Content-Type', 'application/json');
