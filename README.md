@@ -1,8 +1,8 @@
 # CRUD con PHP y AJAX
 
-Es un crud usando PHP apoyado con una framework tiny llamado [slim](https://www.slimframework.com/docs/v4/) solamente para manejar las rutas.
+Es un CRUD usando PHP apoyado con un framework tiny llamado [slim](https://www.slimframework.com/docs/v4/) solamente para manejar las rutas.
 
-El backend esta hecho con PHP, me apoye en un framework tiny solamente para manejar las rutas y evitar esa lógica, pero hice el modelo y la lógica con PHP vanilla, con una clase conexión y una clase usuario (que es el único objeto) que hereda de conexión para hacer los queries.
+El backend esta hecho con PHP, me apoye en un framework tiny únicamente para manejar las rutas, además hice el modelo y la lógica con PHP vanilla, con una clase conexión que utiliza PDO y una clase usuario (que es el único objeto) que hereda de conexión para hacer los queries.
 
 El frontend esta hecho con bootstrap y jquery, la tabla con el plugin de [DataTables](https://datatables.net/), las peticiones ajax estan hechas con fetch.
 
